@@ -57,18 +57,20 @@ try:
             RSSI = Datos[Datos.index("RSSI= ") + 6:Datos.index(", Length")]
             #print(RSSI)
             MAC = Datos[Datos.index("SMAC= ") + 6:Datos.index("\r\n")] 
-            print(MAC)
+            #print(MAC)
             
-            """if MAC in maclist:                
-                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final time").update(str(datetime.now().time()))
-                db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
+            if MAC in maclist:  
+                print(MAC)   
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final_time").update(str(datetime.now().time()))
+                #db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
                             
             else: 
                 maclist.append(MAC)
-                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Start time").push(str(datetime.now().time()))
-                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final time").push(str(datetime.now().time()))
-                db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
-              """         
+                print(maclist)
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Start_time").push(str(datetime.now().time()))
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final_time").push(str(datetime.now().time()))
+                #db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
+                      
             today = date.today()             
             
 
