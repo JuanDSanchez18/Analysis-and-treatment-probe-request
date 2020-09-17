@@ -43,9 +43,10 @@ while not canBreak:
 
 print("[+] Serial connected. Name: " + ser.name)
 
+maclist = []
 today = date.today()
 
-#Datos = "Type= MGMT, Channel= 07, RSSI= -88, Length= 278, SMAC= BC:CA:B5:D7:26:40, Time= 100"
+#Datos = "Type= MGMT, Channel= 07, RSSI= -88, Length= 278, SMAC= BC:CA:B5:D7:26:40"
 try:
     while True:
         while (today == date.today()):
@@ -55,16 +56,20 @@ try:
             #Datos = Datos.rstrip("\r\n") 
             RSSI = Datos[Datos.index("RSSI= ") + 6:Datos.index(", Length")]
             #print(RSSI)
-            MAC = Datos[Datos.index("SMAC= ") + 6:Datos.index(", Time")] 
-            #print(MAC)
-            TIME = Datos[Datos.index("Time= ") + 6:Datos.index("\r\n")] 
-            #print(TIME)
+            MAC = Datos[Datos.index("SMAC= ") + 6:Datos.index("\r\n")] 
+            print(MAC)
             
-            db.child(str(today)).child("DATA_Serial1").child(MAC).child("Time").push(str(datetime.now().time()))
-            db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
-            db.child(str(today)).child("DATA_Serial1").child(MAC).child("Count").update({"Count": TIME}) 
-        
-        today = date.today()             
+            """if MAC in maclist:                
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final time").update(str(datetime.now().time()))
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
+                            
+            else: 
+                maclist.append(MAC)
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Start time").push(str(datetime.now().time()))
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final time").push(str(datetime.now().time()))
+                db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
+              """         
+            today = date.today()             
             
 
 except KeyboardInterrupt:
