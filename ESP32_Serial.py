@@ -25,7 +25,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-serialport = "/dev/ttyUSB0"
+serialport = "/dev/ttyUSB1"
 boardRate = 115200
         
 canBreak = False
@@ -60,13 +60,13 @@ try:
             #print(MAC)
             
             if MAC in maclist:  
-                print(MAC)   
+                #print(MAC)
                 db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final_time").update(str(datetime.now().time()))
                 #db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
                             
             else: 
                 maclist.append(MAC)
-                print(maclist)
+                #print(maclist)
                 db.child(str(today)).child("DATA_Serial1").child(MAC).child("Start_time").push(str(datetime.now().time()))
                 db.child(str(today)).child("DATA_Serial1").child(MAC).child("Final_time").push(str(datetime.now().time()))
                 #db.child(str(today)).child("DATA_Serial1").child(MAC).child("RSSI").push(RSSI)
